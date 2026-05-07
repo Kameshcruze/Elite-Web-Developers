@@ -61,7 +61,7 @@ const imageObserver = new IntersectionObserver(
   },
   {
     threshold: 0.22,
-    rootMargin: "0px 0px -6% 0px",
+    rootMargin: "160px 0px 160px 0px",
   }
 );
 
@@ -77,13 +77,18 @@ const updateParallax = () => {
 
   const viewportHeight = window.innerHeight;
   const isMobile = mobileMotionQuery.matches;
-  const multiplier = isMobile ? -0.28 : -0.16;
-  const scale = isMobile ? 1.075 : 1.04;
-  const movementLimit = isMobile ? 44 : 70;
+  const multiplier = isMobile ? -0.18 : -0.11;
+  const scale = isMobile ? 1.045 : 1.028;
+  const movementLimit = isMobile ? 28 : 44;
 
   parallaxImages.forEach((image) => {
-    const speed = Number(image.dataset.speed || 0);
     const rect = image.getBoundingClientRect();
+
+    if (rect.bottom < -viewportHeight * 0.35 || rect.top > viewportHeight * 1.35) {
+      return;
+    }
+
+    const speed = Number(image.dataset.speed || 0);
     const distanceFromCenter = rect.top + rect.height / 2 - viewportHeight / 2;
     const rawMovement = distanceFromCenter * speed * multiplier;
     const movement = Math.max(-movementLimit, Math.min(movementLimit, rawMovement));
