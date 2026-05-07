@@ -22,6 +22,7 @@ if (navToggle && nav) {
   navToggle.addEventListener("click", () => {
     const isOpen = nav.classList.toggle("is-open");
     navToggle.classList.toggle("is-open", isOpen);
+    header.classList.toggle("menu-open", isOpen);
     navToggle.setAttribute("aria-expanded", String(isOpen));
   });
 
@@ -29,6 +30,7 @@ if (navToggle && nav) {
     link.addEventListener("click", () => {
       nav.classList.remove("is-open");
       navToggle.classList.remove("is-open");
+      header.classList.remove("menu-open");
       navToggle.setAttribute("aria-expanded", "false");
     });
   });
@@ -142,6 +144,11 @@ tiltCards.forEach((card) => {
 
 if (cursorLight) {
   window.addEventListener("pointermove", (event) => {
+    if (mobileMotionQuery.matches) {
+      cursorLight.style.opacity = "0";
+      return;
+    }
+
     cursorLight.style.opacity = "1";
     cursorLight.style.transform = `translate3d(${event.clientX - 90}px, ${event.clientY - 90}px, 0)`;
   });
