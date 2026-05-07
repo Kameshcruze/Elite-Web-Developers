@@ -17,6 +17,7 @@
   --radius: 8px;
   --max: 1180px;
   --header-height: 82px;
+  --strip-height: 58px;
 }
 
 * {
@@ -234,12 +235,12 @@ select {
 
 .hero {
   position: relative;
-  min-height: 92svh;
+  min-height: calc(100svh - var(--strip-height));
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.72fr);
   align-items: end;
   gap: 44px;
-  padding: 150px max(24px, calc((100vw - var(--max)) / 2)) 68px;
+  padding: 132px max(24px, calc((100vw - var(--max)) / 2)) 42px;
   overflow: hidden;
 }
 
@@ -515,7 +516,7 @@ h3 {
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
-  height: 58px;
+  height: var(--strip-height);
   padding: 0 34px;
   color: var(--muted);
   font-size: 0.84rem;
@@ -1200,7 +1201,7 @@ cite {
 .reveal {
   opacity: 0;
   transform: translateY(34px);
-  transition: opacity 720ms ease, transform 720ms ease, clip-path 720ms ease;
+  transition: opacity 560ms ease, transform 560ms ease, clip-path 560ms ease;
   transition-delay: var(--delay, 0ms);
 }
 
@@ -1210,6 +1211,10 @@ cite {
 }
 
 .scroll-image {
+  backface-visibility: hidden;
+}
+
+.scroll-image.is-image-visible {
   will-change: transform;
 }
 
